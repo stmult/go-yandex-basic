@@ -19,4 +19,22 @@ func main() {
 		total += x2[i]
 	}
 	fmt.Println(total / float64(len(x2)))
+
+	var total2 float64 = 0
+	for _, value := range x2 {
+		total2 += value
+	}
+	fmt.Println(total2 / float64(len(x)))
+
+	x3 := [5]float64{98, 93, 77, 82, 83}
+	fmt.Println(x3[2])
+
+	x4 := [5]float64{
+		1,
+		93,
+		77,
+		82,
+		83,
+	}
+	fmt.Println(x4[4])
 }
