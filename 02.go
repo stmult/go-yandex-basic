@@ -113,4 +113,23 @@ func main() {
 	if el, ok := elements2["Li"]; ok {
 		fmt.Println(el["name"], el["state"])
 	}
+
+	x6 := [6]string{"a", "b", "c", "d", "e", "f"}
+	fmt.Println(x6[2:5])
+	fmt.Println(x6[3])
+
+	x7 := []int{
+		48, 96, 86, 68,
+		57, 82, 63, 70,
+		37, 34, 83, 27,
+		19, 97, 9, 17,
+	}
+	min := x7[0]
+	for _, i2 := range x7 {
+		if i2 < min {
+			min = i2
+		}
+	}
+	fmt.Println(min)
+
 }
