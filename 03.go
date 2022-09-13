@@ -14,10 +14,47 @@ func main() {
 		return x + y
 	}
 	fmt.Println(add(1100, 1))
+	half(5)
+	max(1, 2, 3)
+
+	//defer перемещает вызов second в конец функции, но перед паникой
+	defer second()
+	first()
+
+	nextEven := makeEvenGenerator()
+	fmt.Println(nextEven()) // 0
+	fmt.Println(nextEven()) // 2
+	fmt.Println(nextEven()) // 4
+
+	// так нужно вызывать панику, если хотим получить сообщение паники. То есть обязательно использовать defer, иначе паника всё остановит
+	/* defer func() {
+		str := recover()
+		fmt.Println(str)
+	}()
+	panic("PANIC") */
 
 	// после паники идет остановка
 	panic1(xb)
 
+}
+func max(args2 ...int) {
+	start := args2[0]
+	for _, i3 := range args2 {
+		if i3 > start {
+			start = i3
+		}
+
+	}
+	fmt.Println(start)
+}
+
+func half(x2 int) {
+	x3 := x2 / 2
+	res := "false"
+	if x2%2 == 0 {
+		res = "true"
+	}
+	fmt.Printf("%d, %s\n", x3, res)
 }
 
 // просто функция, которая считает среднее значение
@@ -58,4 +95,21 @@ func add(args ...int) int {
 		total += v
 	}
 	return total
+}
+
+// генерирует четное число
+func makeEvenGenerator() func() uint {
+	i := uint(0)
+	return func() (ret uint) {
+		ret = i
+		i += 2
+		return
+	}
+}
+
+func first() {
+	fmt.Println("1st")
+}
+func second() {
+	fmt.Println("2nd")
 }
