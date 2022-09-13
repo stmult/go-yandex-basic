@@ -16,6 +16,7 @@ func main() {
 	fmt.Println(add(1100, 1))
 	half(5)
 	max(1, 2, 3)
+	max2([]int{100, 200, 300, 500})
 
 	//defer перемещает вызов second в конец функции, но перед паникой
 	defer second()
@@ -26,6 +27,12 @@ func main() {
 	fmt.Println(nextEven()) // 2
 	fmt.Println(nextEven()) // 4
 
+	nextOdd := makeOddGenerator()
+	fmt.Println(nextOdd()) // 1
+	fmt.Println(nextOdd()) // 3
+	fmt.Println(nextOdd()) // 5
+
+	fmt.Println(fibonachi(30))
 	// так нужно вызывать панику, если хотим получить сообщение паники. То есть обязательно использовать defer, иначе паника всё остановит
 	/* defer func() {
 		str := recover()
@@ -43,7 +50,16 @@ func max(args2 ...int) {
 		if i3 > start {
 			start = i3
 		}
+	}
+	fmt.Println(start)
+}
 
+func max2(xn []int) {
+	start := xn[0]
+	for _, i3 := range xn {
+		if i3 > start {
+			start = i3
+		}
 	}
 	fmt.Println(start)
 }
@@ -75,6 +91,16 @@ func factorial(x uint) uint {
 	return x * factorial(x-1)
 }
 
+func fibonachi(x uint) uint {
+	if x == 0 {
+		return 0
+	}
+	if x == 1 {
+		return 1
+	}
+	return fibonachi(x-1) + fibonachi(x-2)
+}
+
 // пример вызова паники
 func panic1(xs []float64) float64 {
 	panic("Not Implemented")
@@ -100,6 +126,15 @@ func add(args ...int) int {
 // генерирует четное число
 func makeEvenGenerator() func() uint {
 	i := uint(0)
+	return func() (ret uint) {
+		ret = i
+		i += 2
+		return
+	}
+}
+
+func makeOddGenerator() func() uint {
+	i := uint(1)
 	return func() (ret uint) {
 		ret = i
 		i += 2
